@@ -9,6 +9,7 @@ func main()  {
     b := twoSum(a, 8)
     fmt.Println(b)
 }
+
 func twoSum(nums []int, target int) []int {
     for i, _ := range nums {
         for j, v := range nums[i+1:] {
