@@ -1,5 +1,6 @@
-package main
+// https://leetcode-cn.com/problems/add-two-numbers/
 
+package main
 import (
     "fmt"
     "strconv"
@@ -11,9 +12,10 @@ type ListNode struct {
 }
 
 func main(){
-    a, b := []int{2,4,3, 12}, []int{5,6,4,33}
+    a, b := []int{9,9}, []int{9}
 
     l1, l2, tmp  := new(ListNode), new(ListNode), new(ListNode)
+
     for i := 0; i < len(a); i++{
         if i == 0 {
             l1.Val = a[i]
@@ -34,10 +36,12 @@ func main(){
         }
     }
 
-    l3 := addTwoNumbers(l1, l2)
-    nextNode := l3
+    list3 := addTwoNumbers (l1, l2)
+    nextNode := list3
 
+    fmt.Println(a, b)
     fmt.Println("完成---开始打印")
+
     for true {
         fmt.Printf("%d -> ", nextNode.Val)
         if nextNode.Next == nil {
@@ -45,7 +49,6 @@ func main(){
         }
         nextNode = nextNode.Next
     }
-
     return
 }
 
@@ -56,99 +59,55 @@ func appReverse(s []int) []int {
 	return s
 }
 
-func appInsert(nums []int, site int) []int {
-    numsLength := len(nums)
-    rangTimes  :=0
-    
-    for true {
-        if rangTimes > numsLength {
-            break
-        }
-        if site > numsLength - 1 {
-            nums = append([]int{1}, nums...)
-            return nums
-        }
-        if nums[site] + 1 >= 10 {
-            str := strconv.Itoa(nums[site] + 1)
-            nums[site], _ = strconv.Atoi(string(str[1]))
-            
-            nums = appInsert(nums, site + 1)
-        } else {
-            nums[site] = site + 1
-            return nums
-        }
-        rangTimes += 1
-    }
-    
-    return nums
-}
-
-func appNum(aNum []int, bNum []int) (cNum []int) {
-    rangeTimes, bMax, bCal := len(aNum), len(bNum), 0
-    
-    for i := 0; i <= rangeTimes - 1; i++ {
-        x, y := aNum[i], 0
-        if bCal < bMax {
-            y = bNum[i]
-        }
-        if (x + y) >= 10 {
-            str := strconv.Itoa(x + y)
-            aNum[i], _ = strconv.Atoi(string(str[1]))
-            
-            aNum = appInsert(aNum, i + 1)
-        } else {
-            aNum[i] = x + y
-        }
-        cNum = append(cNum, aNum[i])
-        bCal += 1
-    }
-    return cNum
-}
-func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
-    var nums1, nums2, nums3 []int
-
-    tmpL1, tmpL2 := l1, l2
-    for true  {
-        nums1 = append(nums1, tmpL1.Val)
-        if tmpL1.Next == nil {
-            break
-        }
-        tmpL1 = tmpL1.Next
-    }
+func addTwoNumbers (l1 *ListNode, l2 *ListNode) *ListNode{
+    start1, start2 := l1, l2
 
     for true {
-        nums2 = append(nums2, tmpL2.Val)
-        if tmpL2.Next == nil {
-            break
+       if l1 == nil {
+           return start2
+       }
+       if l2 == nil {
+           return start1
+       }
+
+        tmp := l1
+        var totalVal int
+        var t string
+        totalVal = l1.Val + l2.Val
+
+        t = strconv.Itoa(totalVal)
+        if totalVal >= 10 {
+            l2.Val, _ = strconv.Atoi(string(t[1]))
+            l1.Val, _ = strconv.Atoi(string(t[1]))
+
+            if l1.Next != nil {
+                appRangAdd(l1.Next)
+            } else {
+                l1.Next = &ListNode{Val: 1}
+            }
+            l1 = tmp
+        } else {
+            l1.Val, _ = strconv.Atoi(string(t[0]))
+            l2.Val, _ = strconv.Atoi(string(t[0]))
         }
-        tmpL2 = tmpL2.Next
+
+        l1 = l1.Next
+        l2 = l2.Next
     }
-    appReverse(nums1)
-    appReverse(nums2)
-    
-    if len(nums1) >= len(nums2){
-        nums3 = appNum(nums1, nums2)
+    return start1
+}
+
+func appRangAdd(num *ListNode){
+    if num.Val + 1 >= 10 {
+        t := strconv.Itoa(num.Val + 1)
+        num.Val, _ = strconv.Atoi(string(t[0]))
+        if num.Next == nil {
+            num.Next = &ListNode{Val: 1}
+            return
+        } else {
+            appRangAdd(num.Next)
+        }
     } else {
-        nums3 = appNum(nums2, nums1)
+        num.Val = num.Val + 1
     }
-    appReverse(nums3)
-    
-    l3String := ""
-    for i, _ := range nums3 {
-       l3String += strconv.Itoa(nums3[i])
-    }
-    
-    startL3, upNode := new(ListNode), new(ListNode)
-    for i := len(l3String) - 1; i >= 0; i-- {
-        t, _ := strconv.Atoi(string(l3String[i]))
-        if i == len(l3String) - 1 {
-           startL3.Val = t
-           upNode = startL3
-        } else {
-           upNode.Next = &ListNode{Val: t}
-           upNode = upNode.Next
-        }
-    }
-
-    return startL3
 }
