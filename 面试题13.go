@@ -32,8 +32,8 @@ func movingCount(m int, n int, k int) int {
 func changeState1(x, y, k, totalX, totalY int, canTotal *int, chess [][]int){
     // 左
     if x >= 0 && y >= 0 && x - 1 >= 0 && y <= totalY {
-        if chess[x-1][y] != 1 && chess[x-1][y] != 3{
-            chess[x-1][y] = 1
+        if chess[x - 1][y] != 1{
+            chess[x - 1][y] = 1
             if sumParseInt(x-1)+sumParseInt(y) <= k {
                 *canTotal += 1
                 changeState1(x-1, y, k, totalX, totalY, canTotal, chess)
@@ -42,7 +42,7 @@ func changeState1(x, y, k, totalX, totalY int, canTotal *int, chess [][]int){
     }
     // 右
     if x >= 0 && y >= 0 && x + 1 <= totalX && y <= totalY {
-        if chess[x + 1][y] != 1 && chess[x + 1][y] != 3{
+        if chess[x + 1][y] != 1{
             chess[x + 1][y] = 1
             if sumParseInt(x + 1) + sumParseInt(y) <= k {
                 *canTotal += 1
