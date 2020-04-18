@@ -2,15 +2,44 @@
 
 package main
 
-import "fmt"
+import (
+    "context"
+    "fmt"
+    "time"
+)
+
 
 func main() {
-    // 2,5,0,0
-    // [1,1,2,2,0,1,1]
-    // [3,2,1,0,4]
-    
-    fmt.Println(canJump([]int{3,2,1,0,4}))
+	ctx, cancel := context.WithTimeout(context.Background(), 1*time.Second)
+	defer cancel()
+
+	go handleW(ctx, 1500*time.Millisecond)
+	select {
+	case <-ctx.Done():
+		fmt.Println("main", ctx.Err())
+	}
+
+    time.Sleep(time.Second * 3)
 }
+
+func handleW(ctx context.Context, duration time.Duration) {
+	select {
+	case <-ctx.Done():
+		fmt.Println("handle", ctx.Err())
+    default:
+        fmt.Println("process request with", duration)
+        time.Sleep(duration)
+        fmt.Println("process request with", 111)
+	}
+}
+//
+//func main() {
+//    // 2,5,0,0
+//    // [1,1,2,2,0,1,1]
+//    // [3,2,1,0,4]
+//
+//    fmt.Println(canJump([]int{3,2,1,0,4}))
+//}
 
 
 //
