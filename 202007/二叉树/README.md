@@ -1,4 +1,7 @@
-```cgo
+<!-- 算法模板核心思想是 提供一套统一的解题的公式 -->
+
+```go
+package node
 type Node struct {
     LeftNode  *Node
     RightNode *Node
@@ -7,12 +10,23 @@ type Node struct {
 ```
 
 ## 前序遍历 ##
+
 ![preOrderTraversal](./image/preOrderTraversal.png-tmp)
+
 #### 使用递归 ####
-```cgo
-func preOrderTraversal(root *treeNode){
+
+```go
+package traversal
+
+type TreeNode struct {
+    LeftNode  *TreeNode
+    RightNode *TreeNode
+    Val       int
+}
+
+func preOrderTraversal(root *TreeNode){
     if root == nil{
-        return nil
+        return
     }
 
     fmt.Println(root.Val)
@@ -20,14 +34,15 @@ func preOrderTraversal(root *treeNode){
     preOrderTraversal(root.RightNode)
 }
 ```
-#### 使用非递归 ####
-```cgo
+
+#### 使用递归 ####
+```go
 func preOrderTraversal(root *treeNode) {
     if root == nil{
         return nil
     }
     stack := make([]*Node, 0)
-    
+
     for root != nil || len(stack) != 0 {
         for root != nil {
             fmt.Println(root.Val)
@@ -37,18 +52,19 @@ func preOrderTraversal(root *treeNode) {
         node := stack[len(stack)-1]
         stack = stack[:len(stack)-1]
         root = node.RightNode
-    }   
+    }
 }
-
 // 1 -> 2 -> 4 -> 5 -> 3 -> 6 -> 7
 ```
 
 
 ## 中序遍历 ##
+
 ![inOrderTraversal](./image/inOrderTraversal.jpg-Tmp)
 
 #### 中序非递归
-```cgo
+
+```go
 func inOrderTraversal(root * treeNode) {
     if root == nil {
         return 
@@ -64,7 +80,7 @@ func inOrderTraversal(root * treeNode) {
         stack := stack[:len(stack)-1]
         fmt.Println(node.Val)
         root := node.RightNode
-    }   
+    }
 }
 
 // 4 -> 2 -> 5 -> 1 -> 3 -> 6 -> 7
@@ -74,7 +90,8 @@ func inOrderTraversal(root * treeNode) {
 ## 后续遍历 ##
 
 #### 后续非递归遍历
-```cgo
+
+```go
 func afterOrderTraversal(root *treeNode){
     if root == nil {
         return
@@ -87,7 +104,7 @@ func afterOrderTraversal(root *treeNode){
             stack = append(stack, root)
             root = root.LeftNode
         }
-        
+
         node := stack[len(stack) - 1]
         if node.RightNode == nil || node.RightNode == lastVisit {
             stack = stack[:len(stack) - 1]
@@ -139,7 +156,8 @@ func orderHierarchy(root *TreeNode) {
 ```
 
 ## DFS 深度搜索 从下向上(分治法) ##
-```cgo
+
+```go
 func divideAndTraversal(root *Node){
     if root == nil {
         return
@@ -150,19 +168,21 @@ func divideAndTraversal(root *Node){
     fmt.Println(root.Val)
 }
 ```
+
 > 注意: 深度搜索(从上到下)和分治法的区别, 前者一般将最终结果通过指针参数传入
 > 后者是递归返回结果最后合并
 
 ## BFS 广度搜索 层次遍历 ##
-```cgo
+
+```go
 func levelOrder(root *Node) {
     if root == nil {
         return
     }
-    
+
     quene := make([]*Node, 0)
     quene = append(quene, root)
-    
+
     for len(quene) > 0{
         l := len(quene)
         for i := 0 ; i < l; i ++ {
@@ -180,7 +200,101 @@ func levelOrder(root *Node) {
 }
 ```
 
+## 归并排序 ##
 
+```go
+func MergeSort(nums []int) []int {
+    return mergeSort(nums)
+}
 
+func mergeSort(nums []int) []int{
+    if len(nums) <= 1 {
+      return nums
+    }
 
-     
+    mid := len(nums) / 2
+
+    left := mergeSort(nums[:mid])
+    right := mergeSort(nums[mid:])
+
+    result := merge(left, right)
+    return result
+}
+
+func merge(left, right []int)(result []int){
+  var l, r := 0, 0 
+  
+  for (l < len(left)) && r < len(right) {
+    if left[l] > right[r] {
+      result = append(result, right[r])
+      r++
+    } else {
+      result = append(result, left[l])
+      l++
+    }
+  }
+  result = append(result, left[l:]...)
+  result = append(result, right[r:]...)
+  return
+}
+```
+
+// 代码的核心思想
+比较有序数组并且合并成一个结果
+特别是这部分
+
+```go
+for (l < len(left)) && r < len(right) {
+    if left[l] > right[r] {
+      result = append(result, right[r])
+      r++
+    } else {
+      result = append(result, left[l])
+      l++
+    }
+}
+result = append(result, left[l:]...)
+result = append(result, right[r:]...)
+两个数组 从低位开始依次比较， 最后单独剩余的部分不再比较（直接合并）， 返回结果集
+```
+
+## 快速排序 ##
+
+```go
+func QuickSort(nums []int) []int {
+    quickSort(nums, 0, len(nums)-1)
+    return nums
+}
+
+func quickSort(nums []int, start, end int){
+    if start < end {
+        // 分治法
+        prvot := partition(nums, start, end)
+        quickSort(nums, 0, pivot-1)
+        quickSort(nums, pivot+1, end)
+    }
+}
+
+func partition(nums []int, start, end int) int {
+    p, i := nums[end], start
+
+    for j := start; j < end; j++ {
+        if nums[j] < p {
+            swap(nums, i, j)
+            i++
+        }
+    }
+    swap(nums, i, end)
+    return i
+}
+
+func swap(nums []int, i, j int){
+    t := nums[i]
+    nums[i] = nums[j]
+    nums[j] = t
+}
+```
+
+> 快排的核心思想:
+> 和合并排序不相同， 合并排序是递归返回结果集
+> 快排的核心是改变结果集
