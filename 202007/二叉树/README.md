@@ -20,7 +20,7 @@ func preOrderTraversal(root *treeNode){
     preOrderTraversal(root.RightNode)
 }
 ```
-#### 使用递归 ####
+#### 使用非递归 ####
 ```cgo
 func preOrderTraversal(root *treeNode) {
     if root == nil{
@@ -31,11 +31,11 @@ func preOrderTraversal(root *treeNode) {
     for root != nil || len(stack) != 0 {
         for root != nil {
             fmt.Println(root.Val)
-            statck = append(stack, 0)
+            statck = append(stack, root)
             root = root.LeftNode
         }
         node := stack[len(stack)-1]
-        stack := stack[:len(stack)-1]
+        stack = stack[:len(stack)-1]
         root = node.RightNode
     }   
 }
@@ -106,6 +106,37 @@ func afterOrderTraversal(root *treeNode){
 > 如果没有右边的节点, 或者 是最后一个访问的节点 都可打印并且推出栈
 
 
+## 按照层级遍历 ## 
+```go
+package treeNode
+
+type TreeNode struct {
+    Left  *TreeNode
+    Right *TreeNode
+    Val       int
+}
+func orderHierarchy(root *TreeNode) {
+    if root == nil {
+        return
+    }   
+    queue := make([]*TreeNode, 0)
+    queue = append(queue, root)
+    for len(queue) > 0 {
+        tmpQueue := make([]*TreeNode, 0)
+        for _, v := range queue {
+            if v.Left != nil {
+                tmpQueue = append(tmpQueue, v.Left)
+            }
+            if v.Right != nil {
+                tmpQueue = append(tmpQueue, v.Right)
+            }  
+        }   
+        queue = tmpQueue
+    }
+}
+// 其中tmpQueue中保存的就是二叉树当前层所有节点
+// 顺序是从上至下
+```
 
 ## DFS 深度搜索 从下向上(分治法) ##
 ```cgo
