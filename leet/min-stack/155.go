@@ -2,7 +2,6 @@
 package min_stack
 
 import (
-	"fmt"
 	"sort"
 )
 
@@ -27,17 +26,18 @@ type MinStack struct {
 [[],[2147483646],[2147483646],[2147483647],[],[],[],[],[],[],[2147483647],[],[],[-2147483648],[],[],[],[]]
 */
 /** initialize your data structure here. */
+const MAXVALUE = 1<<31 - 1
+
 func Constructor() MinStack {
 	dataSet := make([]int, 0)
 	return MinStack{
-		Min:     1<<31 - 1,
+		Min:     MAXVALUE,
 		DateSet: dataSet,
 	}
 }
 
 func (this *MinStack) Push(x int) {
 	if x <= this.Min {
-		fmt.Println("最小值:", x)
 		this.Min = x
 	}
 	this.DateSet = append(this.DateSet, x)
@@ -52,12 +52,11 @@ func (this *MinStack) Pop() {
 	var cloneDeep = make([]int, 0)
 	cloneDeep = append(cloneDeep, this.DateSet[:len(this.DateSet)]...)
 
-	fmt.Println(cloneDeep)
 	sort.Ints(cloneDeep)
 	if len(cloneDeep) != 0 {
 		this.Min = cloneDeep[0]
 	} else {
-		this.Min = 0
+		this.Min = MAXVALUE
 	}
 }
 
