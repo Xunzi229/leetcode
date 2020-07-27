@@ -30,6 +30,7 @@ const MAXVALUE = 1<<31 - 1
 
 func Constructor() MinStack {
 	dataSet := make([]int, 0)
+
 	return MinStack{
 		Min:     MAXVALUE,
 		DateSet: dataSet,
@@ -40,6 +41,7 @@ func (this *MinStack) Push(x int) {
 	if x <= this.Min {
 		this.Min = x
 	}
+
 	this.DateSet = append(this.DateSet, x)
 }
 
@@ -49,8 +51,8 @@ func (this *MinStack) Pop() {
 	}
 	this.DateSet = this.DateSet[:len(this.DateSet)-1]
 
-	var cloneDeep = make([]int, 0)
-	cloneDeep = append(cloneDeep, this.DateSet[:len(this.DateSet)]...)
+	cloneDeep := make([]int, len(this.DateSet))
+	copy(cloneDeep, this.DateSet)
 
 	sort.Ints(cloneDeep)
 	if len(cloneDeep) != 0 {
