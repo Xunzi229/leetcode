@@ -23,5 +23,16 @@ func singleNumber(nums []int) int {
 		}
 		result = (result << 1) | (sum % 3)
 	}
+
+	/*for i := 0; i < 64; i++ {
+		sum := 0
+		for j := 0; j < len(nums); j++ {
+			// 统计1的个数
+			sum += (nums[j] >> i) & 1
+		}
+		// 还原位00^10=10 或者用| 也可以
+		result |= (sum % 3) << i
+	}*/
+
 	return result
 }
