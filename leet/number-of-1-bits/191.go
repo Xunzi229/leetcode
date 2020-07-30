@@ -15,3 +15,13 @@ func hammingWeight(num uint32) int {
 	num = num * (0x01010101) >> 24
 	return int(num)
 }
+
+// 这种方式可以获取最后一个1
+func hammingWeightStyle2(num uint32) int {
+	res := 0
+	for num != 0 {
+		num = num & (num - 1)
+		res++
+	}
+	return res
+}

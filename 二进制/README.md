@@ -1,3 +1,20 @@
+## 进制的表示方式 ##
+```
+整数各种进制的字面量如下：
+十进制数，没有前缀
+二进制数，前缀是0b
+八进制数，前缀是0o
+十六进制数，前缀是0x
+1
+2
+3
+4
+let decimalInteger = 17
+let binaryInteger = 0b10001       // 二进制的17
+let octalInteger = 0o21           // 八进制的17
+let hexadecimalInteger = 0x11     // 十六进制的17
+```
+
 ## ^ 操作符的使用 异或运算符 ##
 
 ```c
