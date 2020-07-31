@@ -2,6 +2,8 @@
 package search_a_2d_matrix
 
 // [[1],[3],[5]]
+
+// TODO batter style
 func searchMatrix(matrix [][]int, target int) bool {
 	if len(matrix) == 0 {
 		return false
