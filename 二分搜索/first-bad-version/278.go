@@ -31,7 +31,6 @@ func firstBadVersion(n int) int {
 	if isBadVersion(end) {
 		return end
 	}
-
 	return 0
 }
 
