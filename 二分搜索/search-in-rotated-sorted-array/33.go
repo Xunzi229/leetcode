@@ -19,7 +19,7 @@ func search(nums []int, target int) int {
 	}
 
 	start, end := 0, len(nums)-1
-	for start+1 <= end {
+	for start+1 < end {
 		mid := start + (end-start)/2
 		if nums[end] == target {
 			return end
