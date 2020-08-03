@@ -6,8 +6,7 @@ func main() {
 	Queen()
 }
 
-//在 8 * 8 的方格上, 每一行每一列 斜方向只能放一个皇后, 那么一共有多少种摆法
-
+// 在 8 * 8 的方格上, 每一行每一列 斜方向只能放一个皇后, 那么一共有多少种摆法
 func Queen() {
 	var nums = make([][]int, 8)
 	for i := 0; i < 8; i++ {
@@ -20,9 +19,10 @@ func Queen() {
 	queenDeep(nums, 0)
 }
 
-// 用户遍历
+// 遍历
 func queenDeep(nums [][]int, row int) {
 	if row == len(nums) {
+		// 打印棋盘
 		for i, _ := range nums {
 			for _, v := range nums[i] {
 				fmt.Printf("%2d", v)
