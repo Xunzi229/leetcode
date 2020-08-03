@@ -1,11 +1,49 @@
 //https://leetcode-cn.com/problems/merge-k-sorted-lists/
 
-package main
+package merge_k_sorted_lists
 
-import (
-	"sort"
-)
+/**
+ * Definition for singly-linked list.
+ * type ListNode struct {
+ *     Val int
+ *     Next *ListNode
+ * }
+ */
 
+type ListNode struct {
+	Val  int
+	Next *ListNode
+}
+
+func mergeKLists(lists []*ListNode) *ListNode {
+	result := &ListNode{}
+
+	for _, l := range lists {
+		r := result.Next
+
+		tmp := result
+		for l != nil && r != nil {
+			if l.Val > r.Val {
+				tmp.Next = r
+				r = r.Next
+			} else {
+				tmp.Next = l
+				l = l.Next
+			}
+			tmp = tmp.Next
+		}
+		if l != nil {
+			tmp.Next = l
+		}
+
+		if r != nil {
+			tmp.Next = r
+		}
+	}
+	return result.Next
+}
+
+/*
 func mergeKLists(lists []*ListNode) *ListNode {
 	headList := new(ListNode)
 	currentList := headList
@@ -52,3 +90,4 @@ func mergeKLists(lists []*ListNode) *ListNode {
 
 	return headList.Next
 }
+*/
