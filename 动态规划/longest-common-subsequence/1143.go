@@ -21,6 +21,7 @@ package longest_common_subsequence
 */
 // 非常经典的二维的动态规划
 // 使用矩阵可以发现规律
+// TODO
 func longestCommonSubsequence(a string, b string) int {
 	dp := make([][]int, len(a)+1)
 	for i := 0; i <= len(a); i++ {
