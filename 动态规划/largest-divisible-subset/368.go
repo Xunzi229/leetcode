@@ -19,13 +19,16 @@ func largestDivisibleSubset(nums []int) []int {
 	if n == 0 {
 		return nums
 	}
+	// 对数据进行排序
 	sort.Ints(nums)
 
+	//
 	dp := make([]int, n)
 
 	maxValue := 1
 	maxIndex := 0
 
+	// 初始化 为 1
 	for i, _ := range dp {
 		dp[i] = 1
 	}
