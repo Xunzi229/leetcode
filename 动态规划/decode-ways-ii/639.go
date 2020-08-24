@@ -30,25 +30,53 @@ package decode_ways_ii
 //
 //
 // "*" => 42
+// "0" => 48
+// "1" => 49
 func numDecodings(s string) int {
-	dp := make([]int, len(s)+1)
-
-	if s[0] == 42 {
-		dp[0] = 0
-	} else {
-		dp[0] = 1
+	n := len(s)
+	mod := int(1e9) + 7
+	if n == 0 || s[0] == 48 {
+		return 0
 	}
-	
-	for i := 1; i<= len(s); i++ {
-        if s[i] == 48 && s[i-1] == 48 {
-            return 0
-        }
-	    
-	    if s[i] == 42 {
-            switch s[i-1] {
-            case
-            }
-        }
-    }
+	dp := make([]int, len(s)+1)
+	a := " " + s
+	dp[0] = 1
 
+	for i := 1; i <= n; i++ {
+		if a[i] == 42 {
+			dp[i] = (9 * dp[i-1]) % mod
+			if a[i-1] == 49 {
+				dp[i] = dp[i] + 9*dp[i-2]%mod
+			} else if a[i-1] == 50 {
+				dp[i] = dp[i] + 6*dp[i-2]%mod
+			} else if a[i-1] == 42 {
+				dp[i] = dp[i] + 15*dp[i-2]%mod
+			}
+		} else if a[i] == 48 {
+			if a[i-1] == 49 {
+				dp[i] = dp[i-2]
+			} else if a[i-1] == 50 {
+				dp[i] = dp[i-2]
+			} else if a[i-1] == 42 {
+				dp[i] = 2 * dp[i-2] % mod
+			} else {
+				return 0
+			}
+		} else {
+			dp[i] = dp[i-1]
+			if a[i-1] == 49 {
+				dp[i] = (dp[i] + dp[i-2]) % mod
+			} else if a[i-1] == 50 && a[i]-48 >= 1 && a[i]-48 <= 6 {
+				dp[i] = (dp[i] + dp[i-2]) % mod
+			} else if a[i-1] == 42 {
+				if a[i]-42 >= 7 && a[i]-48 <= 9 {
+					dp[i] = (dp[i] + dp[i-2]) % mod
+				} else {
+					dp[i] = (dp[i] + 2*dp[i-2]) % mod
+				}
+				dp[i] = 2 * dp[i-2] % mod
+			}
+		}
+	}
+	return dp[n] % mod
 }
