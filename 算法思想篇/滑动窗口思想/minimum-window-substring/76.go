@@ -67,9 +67,8 @@ func minWindow(s string, t string) string {
 	for right < len(s) {
 		windows = append(windows, right)
 		wMap[s[right]] += 1
-		right++
 
-		for validMap() && left < right {
+		for validMap() && left <= right {
 			str := ""
 			for _, v := range windows {
 				str += string(s[v])
@@ -82,6 +81,7 @@ func minWindow(s string, t string) string {
 			windows = windows[1:]
 			left++
 		}
+		right++
 	}
 	if len(minStr) > len(s) {
 		return ""
