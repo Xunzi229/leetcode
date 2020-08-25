@@ -3,11 +3,6 @@ https://leetcode-cn.com/problems/permutation-in-string/
 */
 package permutation_in_string
 
-import (
-    "sort"
-    "strings"
-)
-
 /*
 给定两个字符串s1和s2，写一个函数来判断 s2 是否包含 s1的排列。
 换句话说，第一个字符串的排列之一是第二个字符串的子串。
@@ -40,38 +35,50 @@ func checkInclusion(s1 string, s2 string) bool {
     }
     return false
 }
-*/
-
-// 跳过不需要的字段
-func checkInclusion(s1 string, s2 string) bool {
-    s1A := strings.Split(s1, "")
-    sort.Strings(s1A)
-    s1 = strings.Join(s1A, "")
-
-    mapS1 := map[byte]int{}
-    for i, _ := range s1 {
-		mapS1[s1[i]] += 1
-	}
-
-    left, right := 0, len(s1)
-    for right <= len(s2){
-        if mapS1[s2[right-1]] == 0 {
-            left = right
-            right += len(s1)
-            continue
-        }
-        w := s2[left:right]
-        if validateCompare(s1, w) {
-            return true
-        }
-        left++
-        right++
-    }
-    return false
-}
 
 func validateCompare(s1, w string) bool {
-    ws := strings.Split(w, "")
-    sort.Strings(ws)
-    return strings.Join(ws, "") == s1
+	ws := strings.Split(w, "")
+	sort.Strings(ws)
+	return strings.Join(ws, "") == s1
+}
+
+*/
+
+func checkInclusion(s1 string, s2 string) bool {
+	ws := make(map[byte]int) // 窗口, 用于备份窗口内的数量,
+	ns := make(map[byte]int) // 需要的,
+
+	for i := 0; i < len(s1); i++ {
+		ns[s1[i]]++
+	}
+
+	left, right := 0, 0
+	match := 0 // 用与标记窗口内字符串相符的个数, 如果相符个数等于s1 长度说明全匹配
+
+	for right < len(s2) {
+		c := s2[right]
+		right++
+		if ns[c] != 0 {
+			ws[c]++
+			if ws[c] == ns[c] {
+				match++
+			}
+		}
+
+		for right-left >= len(s1) {
+			if match == len(ns) {
+				return true
+			}
+
+			d := s2[left]
+			left++
+			if ns[d] != 0 {
+				if ws[d] == ns[d] {
+					match--
+				}
+				ws[d]--
+			}
+		}
+	}
+	return false
 }
