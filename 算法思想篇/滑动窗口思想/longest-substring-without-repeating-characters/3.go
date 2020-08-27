@@ -29,7 +29,7 @@ func lengthOfLongestSubstring(s string) int {
 	for right < len(s) {
 		// 已经出现了
 		nums[s[right]]++
-		if nums[s[right]] > 1 {
+		if nums[s[right]] > 1 && wins[s[right]] >= left {
 			if wins[s[right]]+1 > left {
 				left = wins[s[right]] + 1
 			}
