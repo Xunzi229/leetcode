@@ -3,8 +3,6 @@ https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/
 */
 package longest_substring_without_repeating_characters
 
-import "fmt"
-
 // " "
 // "au"
 // "dvdf"
@@ -37,7 +35,6 @@ func lengthOfLongestSubstring(s string) int {
 		}
 		wins[s[right]] = right
 		if right-left+1 > max {
-			fmt.Println(left, right)
 			max = right - left + 1
 		}
 		right++
