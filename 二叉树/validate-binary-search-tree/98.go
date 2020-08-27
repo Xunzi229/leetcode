@@ -24,6 +24,7 @@ type TreeNode struct {
 节点的右子树只包含大于当前节点的数。
 所有左子树和右子树自身必须也是二叉搜索树。
 */
+// 中序遍历的情况下 , 只要前一个数小于后一个数就行
 func isValidBST(root *TreeNode) bool {
 	if root == nil {
 		return true
