@@ -1,13 +1,18 @@
+## 二叉树 ##
+> 1. 每个节点中的值必须要小于等于右子数的值
+> 2. 每个节点中的值必须要大于等于左子树的值
+
+
 #### 前序遍历: ####
 > 先访问根节点 再前序遍历左子树 再前序遍历右子树
  
- #### 中序遍历 ####
+#### 中序遍历 ####
  > 先中序遍历左子树 再访问根节点 最后中序遍历右子树
  
- #### 后序遍历 ####
+#### 后序遍历 ####
  > 先后续遍历左子树 再后续遍历右子树， 最后访问根节点
 
- #### 怎么记遍历方式? #### 
+#### 怎么记遍历方式? #### 
  前中后其实表示的是根节点的访问时间
  
  ruby -run -e httpd . -p 8888
@@ -25,7 +30,7 @@ type Node struct {
 
 ## 前序遍历 ##
 
-![preOrderTraversal](./image/preOrderTraversal.png-tmp)
+![preOrderTraversal](./image/preOrderTraversal.png)
 
 #### 使用递归 ####
 
@@ -74,7 +79,7 @@ func preOrderTraversal(root *treeNode) {
 
 ## 中序遍历 ##
 
-![inOrderTraversal](./image/inOrderTraversal.jpg-Tmp)
+![inOrderTraversal](./image/inOrderTraversal.jpg)
 
 #### 中序非递归
 
