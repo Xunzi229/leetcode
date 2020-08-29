@@ -20,6 +20,8 @@ type TreeNode struct {
 /*
 [1,2,2,3,null,null,3,4,null,null,4]
 */
+
+// 平衡的二叉树, 使用递归比较好做, 在每一层都需要判断该层是不是平衡二叉树, 如果不是
 func isBalanced(root *TreeNode) bool {
 	if root == nil {
 		return true
@@ -29,23 +31,39 @@ func isBalanced(root *TreeNode) bool {
 }
 
 func deepIsBalanced(root *TreeNode) (bool, int) {
-	if root.Left == nil && root.Right == nil {
+	/*  一  */
+	//if root.Left == nil && root.Right == nil {
+	//	return true, 0
+	//}
+	//if root.Left != nil && root.Right == nil {
+	//	ok, deep := deepIsBalanced(root.Left)
+	//	return ok && deep < 1, deep + 1
+	//}
+	//if root.Right != nil && root.Left == nil {
+	//	ok, deep := deepIsBalanced(root.Right)
+	//	return ok && deep < 1, deep + 1
+	//}
+	/*------------------*/
+	/*  二  */
+	if root == nil {
 		return true, 0
 	}
-	if root.Left != nil && root.Right == nil {
-		ok, deep := deepIsBalanced(root.Left)
-		return ok && deep < 1, deep + 1
-	}
-	if root.Right != nil && root.Left == nil {
-		ok, deep := deepIsBalanced(root.Right)
-
-		return ok && deep < 1, deep + 1
-	}
+	/*------------------*/
 	ok1, d1 := deepIsBalanced(root.Left)
 	ok2, d2 := deepIsBalanced(root.Right)
+	return ok1 && ok2 && abs(d1, d2) <= 1, max(d1, d2) + 1
+}
 
-	if d1 > d2 {
-		return ok1 && ok2 && d1-d2 <= 1, d1 + 1
+func abs(a, b int) int {
+	if a > b {
+		return a - b
 	}
-	return ok1 && ok2 && d2-d1 <= 1, d2 + 1
+	return b - a
+}
+
+func max(a, b int) int {
+	if a > b {
+		return a
+	}
+	return b
 }
