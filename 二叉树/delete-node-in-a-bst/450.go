@@ -23,7 +23,7 @@ func deleteNode(root *TreeNode, key int) *TreeNode {
 	// 只有左边的节点, 替换为右边
 	// 只右右边的节点 替换为左
 	// 有左右节点 左子节点连接到右边最左节点即可
-
+	//
 	if root == nil {
 		return root
 	}
