@@ -102,9 +102,9 @@ func inOrderTraversal(root * treeNode) {
         }
         //
         node := stack[len(stack) - 1]
-        stack := stack[:len(stack)-1]
+        stack = stack[:len(stack)-1]
         fmt.Println(node.Val)
-        root := node.RightNode
+        root = node.RightNode
     }
 }
 
