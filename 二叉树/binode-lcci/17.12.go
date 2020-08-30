@@ -3,8 +3,6 @@ https://leetcode-cn.com/problems/binode-lcci/
 */
 package binode_lcci
 
-import "fmt"
-
 /**
  * Definition for a binary tree node.
  * type TreeNode struct {
@@ -21,6 +19,7 @@ type TreeNode struct {
 }
 
 // 中序遍历
+/*
 func convertBiNode(root *TreeNode) *TreeNode {
 	var head *TreeNode
 	upNode := new(TreeNode)
@@ -34,7 +33,6 @@ func convertBiNode(root *TreeNode) *TreeNode {
 
 		node := stack[len(stack)-1]
 		stack = stack[:len(stack)-1]
-		fmt.Println(node.Val)
 		if head == nil {
 			head = node
 			upNode = node
@@ -47,4 +45,26 @@ func convertBiNode(root *TreeNode) *TreeNode {
 	}
 
 	return head
+}
+*/
+
+func convertBiNode(root *TreeNode) *TreeNode {
+	header := &TreeNode{}
+	node := header
+
+	deepConvertBiNode(root, node)
+
+	return header.Right
+}
+
+// 进行中序遍历
+func deepConvertBiNode(root, node *TreeNode) *TreeNode {
+	if root != nil {
+		node = deepConvertBiNode(root.Left, node)
+		root.Left = nil
+		node.Right = root
+		node = root
+		node = deepConvertBiNode(root.Right, node)
+	}
+	return node
 }
