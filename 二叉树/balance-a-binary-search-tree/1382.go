@@ -19,10 +19,12 @@ type TreeNode struct {
 }
 
 func balanceBST(root *TreeNode) *TreeNode {
-	nums := make([]*TreeNode, 0)
+	nums := make([]int, 0)
 	if root == nil {
 		return root
 	}
+
+	// 使用中序遍历 获取所有的元素值
 	stack := make([]*TreeNode, 0)
 	for root != nil || len(stack) != 0 {
 		for root != nil {
@@ -32,7 +34,7 @@ func balanceBST(root *TreeNode) *TreeNode {
 		node := stack[len(stack)-1]
 
 		stack = stack[:len(stack)-1]
-		nums = append(nums, node)
+		nums = append(nums, node.Val)
 		root = node.Right
 		node.Left = nil
 		node.Right = nil
@@ -40,27 +42,18 @@ func balanceBST(root *TreeNode) *TreeNode {
 	if len(nums) <= 1 {
 		return root
 	}
-
-	center := len(nums) / 2
-	root = nums[center]
-
-	numBalance(nums[center], 0, center-1, &nums)
-	numBalance(nums[center], center+1, len(nums)-1, &nums)
-	return root
+	return numBalance(0, len(nums)-1, &nums)
 }
 
-func numBalance(root *TreeNode, start, end int, nums *[]*TreeNode) {
-	if end < 0 || end >= len(*nums) {
-		return
+// 使用递归
+func numBalance(start, end int, nums *[]int) *TreeNode {
+	if start > end {
+		return nil
 	}
 
-	center := (end - start) / 2
-	if (*nums)[center].Val > root.Val {
-		root.Left = (*nums)[center]
-	}
-	if (*nums)[center].Val < root.Val {
-		root.Left = (*nums)[center]
-	}
-	numBalance((*nums)[center], 0, center-1, nums)
-	numBalance((*nums)[center], center+1, len(*nums)-1, nums)
+	center := (start + end) / 2
+	root := &TreeNode{Val: (*nums)[center]}
+	root.Left = numBalance(start, center-1, nums)
+	root.Right = numBalance(center+1, end, nums)
+	return root
 }
