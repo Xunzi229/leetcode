@@ -32,12 +32,9 @@ func balanceBST(root *TreeNode) *TreeNode {
 			root = root.Left
 		}
 		node := stack[len(stack)-1]
-
 		stack = stack[:len(stack)-1]
 		nums = append(nums, node.Val)
 		root = node.Right
-		node.Left = nil
-		node.Right = nil
 	}
 	if len(nums) <= 1 {
 		return root
