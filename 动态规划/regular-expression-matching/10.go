@@ -19,9 +19,7 @@ package regular_expression_matching
 如果  j 位置是: a-z, 则这个地方 如果  f[i][j] = s[i] == p[j]
 如果  j 位置是: *    则             f[i][j] = f[i][j-2]
 
-
-
-
+\
 如果开始
 如何状态转移
 如何结束
@@ -43,10 +41,46 @@ x,y 如果是匹配的, 那么 x-1,  y-1 也应该需要匹配
 f[i][j] = |
           | f[i][j-2], s[i] != p[j−1]
 
-
-
-边界值 f[0][0]=true
+// 如何考虑这个问题
+画一个EXCEL 可以看到状态转移的过程
+s = "aa"
+p = "a*"
 */
+
 func isMatch(s string, p string) bool {
-	return false
+	// 增加边界初始值
+	p = " " + p
+	s = " " + s
+
+	dp := make([][]bool, len(s))
+	for i := 0; i <= len(s)-1; i++ {
+		dp[i] = make([]bool, len(p))
+	}
+	dp[0][0] = true
+
+	// 初始化边界值, 不考虑 最开始就是*字符这种无效字符情况
+	for j := 1; j <= len(p)-1; j++ {
+		if p[j] == '*' {
+			dp[0][j] = dp[0][j-2]
+		}
+	}
+
+	// 状态转移的过程
+	for i := 1; i <= len(s)-1; i++ {
+		for j := 1; j <= len(p)-1; j++ {
+			if s[i] == p[j] || p[j] == '.' {
+				dp[i][j] = dp[i-1][j-1]
+			} else {
+				if p[j] == '*' {
+					dp[i][j] = dp[i][j-2]
+					if !dp[i][j] {
+						if dp[i-1][j] && (p[j-1] == s[i] || p[j-1] == '.') {
+							dp[i][j] = true
+						}
+					}
+				}
+			}
+		}
+	}
+	return dp[len(s)-1][len(p)-1]
 }
