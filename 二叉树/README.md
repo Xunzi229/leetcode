@@ -16,16 +16,13 @@
 
 #### 怎么记遍历方式? #### 
  前中后其实表示的是根节点的访问时间
- 
- ruby -run -e httpd . -p 8888
- 
- <!-- 算法模板核心思想是 提供一套统一的解题的公式 -->
+
 #### 高度平衡的二叉树 ####
 AVL树是最早发明的自平衡的二叉查找树, 在AVL树中, 任一节点对应的两棵树的最大高度差是 1 ,
 因此他也称为高度平衡树, 查找插入删除的最坏情况时间复杂度都是 log(n)
 
 
-```go
+```golang
 package node
 type Node struct {
     LeftNode  *Node
@@ -40,7 +37,7 @@ type Node struct {
 
 #### 使用递归 ####
 
-```go
+```golang
 package traversal
 
 type TreeNode struct {
@@ -61,7 +58,7 @@ func preOrderTraversal(root *TreeNode){
 ```
 
 #### 非递归 ####
-```go
+```golang
 func preOrderTraversal(root *treeNode) {
     if root == nil{
         return nil
@@ -89,7 +86,7 @@ func preOrderTraversal(root *treeNode) {
 
 #### 中序非递归
 
-```go
+```golang
 func inOrderTraversal(root * treeNode) {
     if root == nil {
         return 
@@ -116,7 +113,7 @@ func inOrderTraversal(root * treeNode) {
 
 #### 后续非递归遍历
 
-```go
+```golang
 func afterOrderTraversal(root *treeNode){
     if root == nil {
         return
@@ -149,7 +146,7 @@ func afterOrderTraversal(root *treeNode){
 
 
 ## 按照层级遍历 ## 
-```go
+```golang
 package treeNode
 
 type TreeNode struct {
@@ -182,7 +179,7 @@ func orderHierarchy(root *TreeNode) {
 
 ## DFS 深度搜索 从下向上(分治法) ##
 
-```go
+```golang
 func divideAndTraversal(root *Node){
     if root == nil {
         return
@@ -199,7 +196,7 @@ func divideAndTraversal(root *Node){
 
 ## BFS 广度搜索 层次遍历 ##
 
-```go
+```golang
 func levelOrder(root *Node) {
     if root == nil {
         return
@@ -227,7 +224,7 @@ func levelOrder(root *Node) {
 
 ## 归并排序 ##
 
-```go
+```golang
 func MergeSort(nums []int) []int {
     return mergeSort(nums)
 }
@@ -268,7 +265,7 @@ func merge(left, right []int)(result []int){
 比较有序数组并且合并成一个结果
 特别是这部分
 
-```go
+```golang
 for (l < len(left)) && r < len(right) {
     if left[l] > right[r] {
       result = append(result, right[r])
@@ -285,7 +282,7 @@ result = append(result, right[r:]...)
 
 ## 快速排序 ##
 
-```go
+```golang
 func QuickSort(nums []int) []int {
     quickSort(nums, 0, len(nums)-1)
     return nums

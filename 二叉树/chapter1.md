@@ -2,7 +2,7 @@
 
 ## 快排 ##
 > 快排的核心思想: 将一份数据切割成两部分, 一部分的数据 都比另一份数据小, 整个过程是递归的, 达到最终的所有的数据都有序
-```go
+```golang
 package quickSort
 
 func QuickSort(nums []int) {
@@ -49,7 +49,7 @@ func swap(nums []int, i, j int) {
 [相关文档1](https://zhuanlan.zhihu.com/p/56066942)
 
 > 左右子树的高度相差不超过 1 的树为平衡二叉树。
-```go
+```golang
 // https://greyireland.gitbook.io/algorithm-pattern/shu-ju-jie-gou-pian/binary_tree#balanced-binary-tree
 package tree
 
