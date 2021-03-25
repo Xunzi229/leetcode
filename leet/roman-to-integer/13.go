@@ -31,5 +31,5 @@ func romanToInt(s string) int {
 		}
 		total += ref[s[i]]
 	}
-	return 0
+	return total
 }
