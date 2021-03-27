@@ -34,8 +34,8 @@ func subsets(nums []int) [][]int {
 	}
 
 	for i := 0; i <= len(nums); i++ {
-		cur := make([]int, 0, i)
-		backtrace(0, i, cur)
+		ts := make([]int, 0, i)
+		backtrace(0, i, ts)
 	}
 	return set
 }
