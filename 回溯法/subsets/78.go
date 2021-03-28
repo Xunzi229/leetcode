@@ -16,7 +16,7 @@ package subsets
 */
 func subsets(nums []int) [][]int {
 	set := make([][]int, 0)
-
+	l := len(nums)
 	var backtrace func(ps, num int, ts []int)
 
 	backtrace = func(ps, num int, ts []int) {
@@ -26,14 +26,14 @@ func subsets(nums []int) [][]int {
 			return
 		}
 
-		for i := ps; i < len(nums); i++ {
+		for i := ps; i < l; i++ {
 			ts = append(ts, nums[i])
 			backtrace(i+1, num, ts)
 			ts = ts[:len(ts)-1]
 		}
 	}
 
-	for i := 0; i <= len(nums); i++ {
+	for i := 0; i <= l; i++ {
 		ts := make([]int, 0, i)
 		backtrace(0, i, ts)
 	}
