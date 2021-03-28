@@ -19,6 +19,13 @@ func subsets(nums []int) [][]int {
 	l := len(nums)
 	var backtrace func(ps, num int, ts []int)
 
+	// 如何考虑这个问题
+	// 如果是 1 个元素
+	// 如果是 2 个元素
+	// 如果是 3 个元素
+	// ...
+
+	// 使用临时数组 ts来存储， 当ts临时数组达到临界点的时候， 保存并且返回
 	backtrace = func(ps, num int, ts []int) {
 		if num == len(ts) {
 			tmp := append([]int{}, ts...)
