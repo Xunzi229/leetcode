@@ -7,9 +7,9 @@ func exist(board [][]byte, word string) bool {
 	var result = false
 
 	var backtrace func(n, x, y int, w string)
-	colorBoard := make([][]int, len(board))
+	colorBoard := make([][]byte, len(board))
 	for i := 0; i < len(board); i++ {
-		colorBoard[i] = make([]int, len(board[i]))
+		colorBoard[i] = make([]byte, len(board[i]))
 	}
 
 	backtrace = func(n, x, y int, w string) {
@@ -18,13 +18,8 @@ func exist(board [][]byte, word string) bool {
 			return
 		}
 
-		if x < 0 || y < 0 || x > len(board) || y > len(board[x]) {
+		if len(w) >= len(word) {
 			return
-		}
-
-		var nextStr byte
-		if n+1 < len(word) {
-			nextStr = word[n+1]
 		}
 
 		// 寻找下一个位置
@@ -32,7 +27,7 @@ func exist(board [][]byte, word string) bool {
 		// 保证下个位置没有重复
 		// 保证下个位置是单词内的字符
 		if x-1 >= 0 && colorBoard[x-1][y] == 0 &&
-			board[x-1][y] == nextStr {
+			board[x-1][y] == word[n+1] {
 			w += string(board[x-1][y])
 			colorBoard[x-1][y] = 1
 			backtrace(n+1, x-1, y, w)
@@ -44,7 +39,7 @@ func exist(board [][]byte, word string) bool {
 		}
 
 		if y-1 >= 0 && colorBoard[x][y-1] == 0 &&
-			board[x][y-1] == nextStr {
+			board[x][y-1] == word[n+1] {
 			w += string(board[x][y-1])
 			colorBoard[x][y-1] = 1
 			backtrace(n+1, x, y-1, w)
@@ -56,7 +51,7 @@ func exist(board [][]byte, word string) bool {
 		}
 
 		if x+1 < len(board) && colorBoard[x+1][y] == 0 &&
-			board[x+1][y] == nextStr {
+			board[x+1][y] == word[n+1] {
 			w += string(board[x+1][y])
 			colorBoard[x+1][y] = 1
 			backtrace(n+1, x+1, y, w)
@@ -68,7 +63,7 @@ func exist(board [][]byte, word string) bool {
 		}
 
 		if y+1 < len(board[x]) && colorBoard[x][y+1] == 0 &&
-			board[x][y+1] == nextStr {
+			board[x][y+1] == word[n+1] {
 			w += string(board[x][y+1])
 			colorBoard[x][y+1] = 1
 			backtrace(n+1, x, y+1, w)
