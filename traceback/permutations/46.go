@@ -1,3 +1,6 @@
+/*
+https://leetcode-cn.com/problems/permutations/
+*/
 package permutations
 
 func permute(nums []int) [][]int {
