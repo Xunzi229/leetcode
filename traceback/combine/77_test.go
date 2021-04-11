@@ -10,5 +10,8 @@ func PackageCombine() [][]int {
 }
 
 func TestPackageCombine(t *testing.T) {
-	fmt.Println(PackageCombine())
+	//fmt.Println(PackageCombine())
+	w := "r"
+	fmt.Println(w[:len(w)-1])
+
 }
