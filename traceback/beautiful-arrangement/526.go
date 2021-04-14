@@ -1,3 +1,7 @@
+/*
+https://leetcode-cn.com/problems/beautiful-arrangement/
+*/
+
 package beautiful_arrangement
 
 func countArrangement(n int) int {
