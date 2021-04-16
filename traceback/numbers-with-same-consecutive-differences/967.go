@@ -1,3 +1,7 @@
+/*
+https://leetcode-cn.com/problems/numbers-with-same-consecutive-differences/
+*/
+
 package numbers_with_same_consecutive_differences
 
 func numsSameConsecDiff(n int, k int) []int {
