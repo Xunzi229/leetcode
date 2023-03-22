@@ -12,7 +12,7 @@ class Solution {
         int nY = 0;
 
         int total = nums1.length + nums2.length;
-        if (total== 0) {
+        if (total == 0) {
             return 0;
         }
 
@@ -29,16 +29,10 @@ class Solution {
             if (nX >= nums1.length) {
                 list.add(nums2[nY]);
                 nY++;
-                continue;
-            }
-
-            if (nY >= nums2.length) {
+            } else if (nY >= nums2.length) {
                 list.add(nums1[nX]);
                 nX++;
-                continue;
-            }
-
-            if (nums1[nX] < nums2[nY]) {
+            } else if (nums1[nX] < nums2[nY]) {
                 list.add(nums1[nX]);
                 nX++;
             } else {
@@ -52,5 +46,52 @@ class Solution {
         } else  {
             return (list.get((total / 2) - 1) + list.get((total / 2)))  / 2.0;
         }
+    }
+
+
+    public static double findMedianSortedArrays2(int[] nums1, int[] nums2) {
+        int nX = 0;
+        int nY = 0;
+
+        int total = nums1.length + nums2.length;
+        if (total == 0) {
+            return 0;
+        }
+
+        if (total == 1) {
+            if (nums1.length == 1) {
+                return nums1[0];
+            }
+            return nums2[0];
+        }
+
+        int upNum = 0;
+        int centerIndex = total / 2;
+
+        int c = 0;
+        for (int i = 0; i < total; i++ ) {
+            if (nX >= nums1.length) {
+                c = nums2[nY];
+                nY++;
+            } else if (nY >= nums2.length) {
+                c = nums1[nX];
+                nX++;
+            } else if (nums1[nX] < nums2[nY]) {
+                c = nums1[nX];
+                nX++;
+            }else {
+                c = nums2[nY];
+                nY++;
+            }
+            if (centerIndex == i) {
+                if (total % 2 == 1) {
+                    return c;
+                } else  {
+                    return (upNum + c)  / 2.0;
+                }
+            }
+            upNum = c;
+        }
+        return 0;
     }
 }
