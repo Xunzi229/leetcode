@@ -9,28 +9,28 @@ import java.util.*;
  */
 
 class Solution {
-
-     public int[] twoSum1(int[] nums, int target) {
-         Map<Integer, Integer> m = new HashMap<>();
-         for (int i = 0; i < nums.length; i++) {
+    public int[] twoSum1(int[] nums, int target) {
+        Map<Integer, Integer> m = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
             if (m.containsKey(target - nums[i])) {
-                 return new int[]{m.get(target - nums[i]), i};
+                return new int[]{m.get(target - nums[i]), i};
             }
             m.put(nums[i], i);
         }
         return new int[]{};
-     }
+    }
+
     public int[] twoSum1(int[] nums, int target) {
-      for (int i = 0; i< nums.length; i++) {
-          if (i+1>nums.length) {
-              return new int[]{};
-          }
-        for (int y = i+1; y < nums.length; y++) {
-            if (nums[i] + nums[y] == target && nums[i] != nums[y]) {
-                return new int[]{i, y};
+        for (int i = 0; i < nums.length; i++) {
+            if (i + 1 > nums.length) {
+                return new int[]{};
+            }
+            for (int y = i + 1; y < nums.length; y++) {
+                if (nums[i] + nums[y] == target && nums[i] != nums[y]) {
+                    return new int[]{i, y};
+                }
             }
         }
-      }
-      return new int[]{};
+        return new int[]{};
     }
 }

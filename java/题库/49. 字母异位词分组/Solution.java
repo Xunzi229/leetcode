@@ -9,20 +9,20 @@
 */
 
 class Solution {
-  public List<List<String>> groupAnagrams(String[] strs) {
+    public List<List<String>> groupAnagrams(String[] strs) {
+      
+        // 具有相同字符的在同一个数组中
+        Map<String, List<String>> m = new HashMap<String, List<String>>();
 
-    // 具有相同字符的在同一个数组中
-    Map<String, List<String>> m = new HashMap<String, List<String>>();
+        for (String str : strs) {
+            char[] chs = str.toCharArray();
 
-    for (String str : strs) {
-      char[] chs = str.toCharArray();
-
-      Arrays.sort(chs);
-      String key = new String(chs);
-      List<String> list = m.getOrDefault(key, new ArrayList<String>());
-      list.add(str);
-      m.put(key, list);
+            Arrays.sort(chs);
+            String key = new String(chs);
+            List<String> list = m.getOrDefault(key, new ArrayList<String>());
+            list.add(str);
+            m.put(key, list);
+        }
+        return new ArrayList<List<String>>(m.values());
     }
-    return new ArrayList<List<String>>(m.values());
-  }
 }

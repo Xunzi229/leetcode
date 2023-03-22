@@ -8,10 +8,10 @@
 
 class Solution {
     public void rotate(int[][] matrix) {
-        if(matrix.length == 0 || matrix.length != matrix[0].length) {
+        if (matrix.length == 0 || matrix.length != matrix[0].length) {
             return;
         }
-
+        
         int maxRowLen = matrix.length;
         /*
          * 先纵向对折
