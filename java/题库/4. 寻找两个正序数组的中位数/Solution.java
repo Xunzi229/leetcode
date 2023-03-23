@@ -67,7 +67,7 @@ class Solution {
             }
             return nums2[0];
         }
-        
+
         List<Integer> list = new ArrayList<>();
 
         for (int i = 0; i < total; i++) {
