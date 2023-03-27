@@ -8,6 +8,7 @@
       <sourceFolder url="file://$MODULE_DIR$/题库/4. 寻找两个正序数组的中位数" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/题库/48. 旋转图像" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/题库/49. 字母异位词分组" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/题库" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
